@@ -1,0 +1,155 @@
+{
+  "id": "101",
+  "title": "Sona masuri Rice (Steam) 10 kg",
+  "price": 549.0,
+  "discountPercentage": 12.96,
+  "rating": {
+    "currentRating": 4.69,
+    "totalRating": 100
+  },
+  "stock": 94,
+  "isVeg": true,
+  "brand": "Taj",
+  "exp": "01/01/24",
+  "mfg": "01/01/22",
+  "totalOrder": "1000",
+  "offers": [
+    "10% off on VISA",
+    "5% off on Master Card",
+    "5% cashback on additional 200 spend"
+  ],
+  "address": {
+    "type": "home",
+    "name": "Harry",
+    "houseno": "Hogwarts",
+    "street": "Hogwarts St",
+    "zipCode": "0000"
+  },
+  "details": "9 Most Popular Types of Rice in India (A COMPREHENSIVE GUIDE)Sona Masoori is commonly known as Par-Boiled rice (Half Boiled) simply White rice. Since this rice variety is partially boiled in the husk, it is cooked faster compared to Raw Rice. These rice varieties are the most commonly used one to prepare plain white rice",
+  "imges": ["bottomLeft", "cp", "ccb"],
+  "manufacturer": "Prof Snape",
+  "delivery": "2 days,Saturday",
+  "paymentReturnOptions": ["Cash on Delivery", "Easy Doorstep Return"],
+  "freedelivery":499,
+  "recommeded": [
+    {
+      "id": "1",
+      "title": "Rice",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["bottomLeft", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "2",
+      "title": "Grams",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "3",
+      "title": "Dal",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "5",
+      "title": "Curd",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "6",
+      "title": "Shirt",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "7",
+      "title": "Jeans",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    },
+    {
+      "id": "8",
+      "title": "Backpack",
+      "description": "An apple mobile which is nothing like apple",
+      "price": 549.0,
+      "discountPercentage": 12.96,
+      "rating": {
+        "currentRating": 4.69,
+        "totalRating": 100
+      },
+      "stock": 94,
+      "isVeg": true,
+      "brand": "Taj",
+      "category": "Grocery",
+      "images": ["mbg", "...", "..."],
+      "exp": "01/01/2024"
+    }
+  ]
+}
