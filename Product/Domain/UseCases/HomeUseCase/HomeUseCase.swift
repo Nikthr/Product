@@ -19,7 +19,7 @@ class HomeUseCase:HomeUseCaseInterface {
     func getHomePageData(zipCode:Int?) -> AnyPublisher<HomeModel,Error> {
         homeRepo.getDishes(jsonName: Constants.HomeScreen.jsonName,
                            exten: Constants.Common.jsonExten)
-        .decode(type: HomeModel.self, decoder: JSONDecoder())
+        .decode(type: HomeModel.self, decoder: JSONDecoder(context: DBController.shared.context))
         .eraseToAnyPublisher()
     }
 }

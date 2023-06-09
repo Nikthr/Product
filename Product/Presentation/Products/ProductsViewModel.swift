@@ -16,7 +16,7 @@ class ProductsViewModel:ObservableObject {
     private var cancellable:AnyCancellable?
     
     init() {
-        useCase = ProdListUseCase(productRepo: ProdListRepoStub())
+        useCase = ProdListUseCase(productRepo: ProdListRepoStub(), dbRepo: DBRepo())
     }
 }
 
@@ -40,5 +40,18 @@ extension ProductsViewModel {
                 print(model)
                 self.products = model.prodlist
             }
+    }
+}
+
+//Cart value changed
+extension ProductsViewModel {
+    func cartValueChanged(for prodId:String) {
+        //1.Filter products based on prod id.
+        //2.Take product and pass to use case
+        //3.From use case call db repo and update/insert item in cart.
+        //If already present update count and insert, else just insert.
+//        if let product = products.first(where: {$0.id == prodId}) {
+//            try? useCase.updateCartItem(prod: product)
+//        }
     }
 }

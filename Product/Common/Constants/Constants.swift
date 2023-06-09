@@ -46,6 +46,7 @@ struct Constants {
     struct Common {
         static let currencyCode:String = Locale.current.currency?.identifier ?? "USD"
         static let jsonExten = ".json"
+        static let addtocart = "Add To Cart"
     }
     struct SystemImages {
         static let tagFill = "tag.fill"
@@ -55,11 +56,12 @@ struct Constants {
     
     struct AppColor {
         static let primaryColor = Color(hue: 0.505, saturation: 0.344, brightness: 0.721)
-        static let backgroundColor = Color(red: 244.0/255.0, green: 254.0/255.0, blue: 254.0/255.0)
+        static let backgroundColor = Color(red: 243.0/255.0, green: 253.0/255.0, blue: 253.0/255.0)
         static let primartTextColor = Color(red: 50.0/255.0, green: 113.0/255.0, blue: 144.0/255.0)
         static let secondaryTextColor = Color(red: 120.0/255.0, green: 184.0/255.0, blue: 214.0/255.0)
         static let lightGrey = Color(red: 242.0/255.0, green: 242.0/255.0, blue: 242.0/255.0)
         static let white = Color(red: 247.0/255.0, green: 255.0/255.0, blue: 255.0/255.0)
+        static let buttonBG = Color(red: 196/255.0, green: 161/255.0, blue: 125/255.0)
         static let blue = Color.blue
     }
 }

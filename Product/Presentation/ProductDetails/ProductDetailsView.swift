@@ -29,52 +29,58 @@ struct SimilarProdCollectionView:View {
     let products:[ProductModel]
     @State var currVal:Int = 0
     var body: some View {
-        LazyVGrid(columns: columns,spacing: 10) {
-        ForEach(products, id: \.id) { product in
-            VStack {
-                Image(product.images.first ?? "")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width:150,height: 150)
-                VStack {
-                    HStack {
-                        Text(product.title)
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .padding(.leading)
-                            .foregroundColor(Constants.AppColor.primartTextColor)
-                        Spacer()
-                    }
-                    HStack{
-                        Text(currencyFormatter.string(from: (product.price) as NSNumber) ?? "")
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .strikethrough()
-                            .foregroundColor(Constants.AppColor.secondaryTextColor)
-                            .padding(.leading)
-                        Spacer()
-                        Text(currencyFormatter.string(from: (product.discounterPrice) as NSNumber) ?? "")
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .padding(.trailing)
-                            .foregroundColor(Constants.AppColor.primartTextColor)
-                    }
-                }
-                HStack {
-                    Spacer()
-                    AddItemButton(currentValue: $currVal)
-                        .padding(Constants.Padding.ds)
-                }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .inset(by: 0.5) // inset value should be same as lineWidth in .stroke
-                    .stroke(Constants.AppColor.primaryColor, lineWidth: 0.5)
-            )
-            .background(Constants.AppColor.white)
-        }.modifier(ScreenPadding())
-     }
+//        LazyVGrid(columns: columns,spacing: 10) {
+//        ForEach(products, id: \.id) { product in
+//            VStack {
+//                Image(product.images.first ?? "")
+//                    .resizable()
+//                    .aspectRatio(contentMode: .fill)
+//                    .frame(width:150,height: 150)
+//                VStack {
+//                    HStack {
+//                        Text(product.title)
+//                            .fontWeight(.light)
+//                            .font(.system(size: 14))
+//                            .padding(.leading)
+//                            .foregroundColor(Constants.AppColor.primartTextColor)
+//                        Spacer()
+//                    }
+//                    HStack{
+//                        Text(currencyFormatter.string(from: (product.price) as NSNumber) ?? "")
+//                            .fontWeight(.light)
+//                            .font(.system(size: 14))
+//                            .strikethrough()
+//                            .foregroundColor(Constants.AppColor.secondaryTextColor)
+//                            .padding(.leading)
+//                        Spacer()
+//                        Text(currencyFormatter.string(from: (product.discounterPrice) as NSNumber) ?? "")
+//                            .fontWeight(.light)
+//                            .font(.system(size: 14))
+//                            .padding(.trailing)
+//                            .foregroundColor(Constants.AppColor.primartTextColor)
+//                    }
+//                }
+//                HStack {
+//                    Spacer()
+//                    AddItemButton(currentValue: currVal, cartValueChange: cartValueChanged)
+//                        .padding(Constants.Padding.ds)
+//                }
+//            }
+//            .clipShape(RoundedRectangle(cornerRadius: 5))
+//            .overlay(
+//                RoundedRectangle(cornerRadius: 5)
+//                    .inset(by: 0.5) // inset value should be same as lineWidth in .stroke
+//                    .stroke(Constants.AppColor.primaryColor, lineWidth: 0.5)
+//            )
+//            .background(Constants.AppColor.white)
+//        }
+//        .modifier(ScreenPadding())
+//     }
+        Text("Hello")
+    }
+    
+    func cartValueChanged(value:Int) {
+        print(value)
     }
 }
 
@@ -126,15 +132,18 @@ struct ProductDetailsView: View {
                                 .foregroundColor(Constants.AppColor.primartTextColor)
                                 
                         }.padding(.bottom,Constants.Padding.ls)
-                        RatingView(value: .constant(Int(detailsModel.rating.currentRating)),
-                                   width: 15,
-                                   height: 15,
-                                   totalRating: detailsModel.rating.totalRating)
+//                        RatingView(value: .constant(Int(detailsModel.rating.currentRating)),
+//                                   width: 15,
+//                                   height: 15,
+//                                   totalRating: detailsModel.rating.totalRating)
                         ProductDetailsText(detailsText: detailsModel.details)
-                        PrimaryButton(text: "Add To Cart", ibAction: addToCartSelected)
-                            .frame(minWidth: geo.size.width - (2*Constants.Padding.ds),maxWidth: geo.size.width - (2*Constants.Padding.ds))
-                            .background(Constants.AppColor.primaryColor)
-                            .padding(.bottom)
+
+                        Button(action: addToCartSelected) {
+                            Text(Constants.Common.addtocart)
+                                .frame(maxWidth:.infinity)
+                                .padding()
+                        }
+                        .buttonStyle(PrimaryButtonStyle())
 
                         VStack(alignment: .leading) {
                             HStack {
@@ -180,8 +189,7 @@ struct ProductDetailsView: View {
                     AddressSection(address: detailsModel.address, function: self.changeAddressSelected)
                     SoldbySection(detailsModel: detailsModel)
                     Group{
-                        HeaderView(text: "Suggested For You")
-                        SimilarProdCollectionView(columns: self.columns, products: detailsModel.recommeded)
+//                        SimilarProdCollectionView(columns: self.columns, products: detailsModel.recommeded)
                     }
                 }
               }

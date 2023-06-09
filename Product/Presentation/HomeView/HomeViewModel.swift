@@ -44,7 +44,7 @@ class HomeViewModel:ObservableObject {
             topRatedImages.removeAll()
             var images:[String] = []
             for product in topRated {
-                if let image = product.images.first {
+                if let image = product.images?.first {
                     images.append(image)
                 }
             }

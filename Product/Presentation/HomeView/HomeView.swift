@@ -16,7 +16,7 @@ struct ProductCollectionView:View {
         LazyVGrid(columns: columns,spacing: 10) {
         ForEach(products, id: \.id) { product in
             ZStack(alignment:.bottom) {
-                Image(product.images.first ?? "")
+                Image(product.images?.first ?? "")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width:150,height: 150)

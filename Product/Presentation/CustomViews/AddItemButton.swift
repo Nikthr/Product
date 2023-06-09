@@ -23,7 +23,7 @@ struct AddItemView:View {
     }
 }
 
-struct StepperComponent:ButtonStyle {
+struct StepperComponentStyle:ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
             configuration.label
             .foregroundColor(.blue)
@@ -37,26 +37,42 @@ struct StepperComponent:ButtonStyle {
     }
 }
 
+struct StepperComponent: View {
+    @Binding var stepperValue:Int
+    var stepperValueChange: (Int) -> Void
+    var body: some View {
+        HStack {
+            Button("+") {
+                stepperValue += 1
+                stepperValueChange(stepperValue)
+            }
+            .buttonStyle(StepperComponentStyle())
+            Text(String(stepperValue))
+                .font(.system(size: Constants.FontSize.regularSize))
+                .foregroundColor(.blue)
+            
+            Button("-") {
+                stepperValue -= 1
+                stepperValueChange(stepperValue)
+                
+            }
+            .buttonStyle(StepperComponentStyle())
+        }
+    }
+}
+
+
 struct AddItemButton: View {
-    @Binding var currentValue:Int
+    @State var currentValue:Int
+    var cartValueChange: (Int) -> Void
     var body: some View {
         HStack{
             if currentValue != 0 {
-                Button("+") {
-                    currentValue += 1
-                }
-                .buttonStyle(StepperComponent())
-                Text(String(currentValue))
-                    .font(.system(size: Constants.FontSize.regularSize))
-                    .foregroundColor(.blue)
-                
-                Button("-") {
-                    currentValue -= 1
-                }
-                .buttonStyle(StepperComponent())
+                StepperComponent(stepperValue: $currentValue, stepperValueChange: cartValueChange)
             }else {
                 Button {
                     currentValue += 1
+                    cartValueChange(currentValue)
                 } label: {
                     AddItemView()
                 }
@@ -73,6 +89,12 @@ struct AddItemButton: View {
 
 struct AddItemButton_Previews: PreviewProvider {
     static var previews: some View {
-        AddItemButton(currentValue: .constant(1))
+        AddItemButton(currentValue: 1, cartValueChange: addedRemovedItem)
     }
+    
+    
+}
+
+func addedRemovedItem(cartCount:Int) {
+    print(cartCount)
 }
