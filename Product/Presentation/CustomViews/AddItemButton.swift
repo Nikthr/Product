@@ -11,7 +11,7 @@ struct AddItemView:View {
     var body: some View {
         HStack {
             Text("Add Item")
-                .foregroundColor(.blue)
+                .foregroundColor(Constants.AppColor.primartTextColor)
                 .font(.system(size: Constants.FontSize.regularSize))
                 .fontWeight(.regular)
                 .padding(EdgeInsets(top:Constants.Padding.xs,
@@ -26,14 +26,14 @@ struct AddItemView:View {
 struct StepperComponentStyle:ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
             configuration.label
-            .foregroundColor(.blue)
+            .foregroundColor(Constants.AppColor.primartTextColor)
             .font(.system(size: Constants.FontSize.largeSize))
             .fontWeight(.regular)
             .padding(EdgeInsets(top: Constants.Padding.xs,
                                 leading: Constants.Padding.xs,
                                 bottom: Constants.Padding.xs,
                                 trailing: Constants.Padding.xs))
-            .frame(height:30)
+            .frame(height:Constants.Common.buttonMinHeight)
     }
 }
 
@@ -49,7 +49,7 @@ struct StepperComponent: View {
             .buttonStyle(StepperComponentStyle())
             Text(String(stepperValue))
                 .font(.system(size: Constants.FontSize.regularSize))
-                .foregroundColor(.blue)
+                .foregroundColor(Constants.AppColor.primartTextColor)
             
             Button("-") {
                 stepperValue -= 1
@@ -82,7 +82,7 @@ struct AddItemButton: View {
        .overlay(
             RoundedRectangle(cornerRadius: Constants.LineThickness.ds)
                 .inset(by: Constants.LineThickness.xs) // inset value should be same as lineWidth in .stroke
-                .stroke(.blue, lineWidth:Constants.LineThickness.xs)
+                .stroke(Constants.AppColor.primartTextColor, lineWidth:Constants.LineThickness.xs)
        )
    }
 }

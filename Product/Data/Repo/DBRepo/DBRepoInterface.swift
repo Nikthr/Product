@@ -13,7 +13,7 @@ enum CartUpdate {
 }
 
 protocol DBRepoInterface {
-//    func updateCartItem(update:CartUpdate,
-//                        prod:ProductModel
-//                        )throws
+    func updateCartItem(update:CartUpdate,
+                        prod:ProductModel
+                        )throws
 }

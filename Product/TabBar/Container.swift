@@ -40,7 +40,7 @@ struct Container: View {
             }
             
             NavigationStack{
-                Text("Cart")
+                CartView(viewModel: CartViewModel())
                     .navigationBarTitleDisplayMode(.inline)
                     .navigationTitle("Cart")
                 .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar)//To change Nvigation Bar Add comma and add after .tabbar- .navigationBar

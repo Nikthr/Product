@@ -19,14 +19,19 @@ struct ProdListUseCase:ProdListUseCaseInterface {
 extension ProdListUseCase {
     
     func getProdList(catHeirarchy:[String]) -> AnyPublisher<ProductListModel,Error> {
-        productRepo.getProdList(jsonName: Constants.ProdScreen.prodList,
+        let prodListToPublish = productRepo.getProdList(jsonName: Constants.ProdScreen.prodList,
                                   exten: Constants.Common.jsonExten)
         .decode(type: ProductListModel.self, decoder: JSONDecoder(context: DBController.shared.context))
-        .eraseToAnyPublisher()
+        do {
+            try DBController.shared.save()
+        }catch{
+            return Fail(outputType: ProductListModel.self, failure: error).eraseToAnyPublisher()
+        }
+        return prodListToPublish.eraseToAnyPublisher()
     }
     
-//    func updateCartItem(prod:ProductModel)throws {
-//         try dbRepo.updateCartItem(update: .incr,
-//                                   prod:prod)
-//    }
+    func updateCartItem(prod:ProductModel)throws {
+         try dbRepo.updateCartItem(update: .incr,
+                                   prod:prod)
+    }
 }

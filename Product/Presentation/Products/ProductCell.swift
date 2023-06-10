@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ProductCell: View {
     @State var product:ProductModel
-    var cartValueChanged:(_ prod:String)->Void
+    var cartValueChanged:(_ prod:ProductModel)->Void
     var body: some View {
-        Text("")
         HStack(alignment:.top) {
             VStack(alignment: .leading) {
                 Image(product.images?.first ?? "")
@@ -26,7 +25,7 @@ struct ProductCell: View {
                         .foregroundColor(.green)
                 }.padding(.top)
             }
-
+            
             VStack(alignment: .leading) {
                 HStack{
                     Text(product.brand)
@@ -51,7 +50,7 @@ struct ProductCell: View {
                         .font(.system(size: Constants.FontSize.ultraLightSize))
                         .fontWeight(.light)
                         .foregroundColor(.gray)
-
+                    
                 }
                 HStack {
                     Text(currencyFormatter.string(from: (product.discounterPrice) as NSNumber) ?? "")
@@ -71,7 +70,6 @@ struct ProductCell: View {
                         .padding(Constants.Padding.xs)
                         .background(.green)
                         .clipShape(RoundedRectangle(cornerRadius: Constants.BorderRaduis.borderRadiusM))
-
                 }
                 HStack {
                     Spacer()
@@ -81,11 +79,10 @@ struct ProductCell: View {
                 Spacer()
             }
         }
-
     }
     
     func cartValueChangeSelected() {
-//        self.cartValueChanged(product.id)
+        self.cartValueChanged(product)
     }
 }
 

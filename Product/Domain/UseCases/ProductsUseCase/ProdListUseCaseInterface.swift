@@ -9,5 +9,5 @@ import Foundation
 import Combine
 protocol ProdListUseCaseInterface {
     func getProdList(catHeirarchy:[String]) -> AnyPublisher<ProductListModel,Error>
-//    func updateCartItem(prod:ProductModel)throws
+    func updateCartItem(prod:ProductModel)throws
 }

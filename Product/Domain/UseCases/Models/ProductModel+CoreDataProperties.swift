@@ -14,6 +14,10 @@ extension ProductModel {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ProductModel> {
         return NSFetchRequest<ProductModel>(entityName: "ProductModel")
     }
+    
+    public override func awakeFromFetch() {
+        self.discounterPrice = self.price - (price * discountPercentage/100)
+    }
 }
 
 extension ProductModel : Identifiable {
