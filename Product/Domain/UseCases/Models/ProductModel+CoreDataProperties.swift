@@ -12,7 +12,9 @@ import CoreData
 extension ProductModel {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<ProductModel> {
-        return NSFetchRequest<ProductModel>(entityName: "ProductModel")
+        let req = NSFetchRequest<ProductModel>(entityName: "ProductModel")
+        req.shouldRefreshRefetchedObjects = true
+        return req
     }
     
     public override func awakeFromFetch() {

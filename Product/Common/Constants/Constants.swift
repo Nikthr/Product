@@ -12,6 +12,9 @@ struct Constants {
     struct ImageSize {
         static let widthIcon:CGFloat = 20
         static let heightIcon:CGFloat = 20
+        
+        static let widthIcon2x:CGFloat = 40
+        static let heightIcon2x:CGFloat = 40
     }
     
     struct Padding {
@@ -79,6 +82,11 @@ extension Constants {
         static let catjsonName = "ProductsCategories"
         static let prodList = "ProdList"
         static let prodDetails = "ProductDetails"
+    }
+    
+    struct OrderScreen {
+        static let proceedToOrderText = "Proceed to order"
+        static let agreementText = "By placing your order, you agree to NMart's Privacy Notice, Conditions of use and Return Policy"
     }
     
     struct ProdListScreen {

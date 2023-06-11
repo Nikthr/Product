@@ -15,6 +15,7 @@ struct ProductView:View {
             ScrollView {
                 LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
                     ForEach(viewModel.products) { product in
+                        let _ = print(product)
                         NavigationLink {
                             ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: product.id))
                         } label: {

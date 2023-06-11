@@ -19,15 +19,27 @@ struct ProdListUseCase:ProdListUseCaseInterface {
 extension ProdListUseCase {
     
     func getProdList(catHeirarchy:[String]) -> AnyPublisher<ProductListModel,Error> {
-        let prodListToPublish = productRepo.getProdList(jsonName: Constants.ProdScreen.prodList,
-                                  exten: Constants.Common.jsonExten)
-        .decode(type: ProductListModel.self, decoder: JSONDecoder(context: DBController.shared.context))
-        do {
-            try DBController.shared.save()
-        }catch{
-            return Fail(outputType: ProductListModel.self, failure: error).eraseToAnyPublisher()
+        if( !dbRepo.checkIfProductsAddedFromStub()) {
+            let prodListToPublish = productRepo.getProdList(jsonName: Constants.ProdScreen.prodList,
+                                                            exten: Constants.Common.jsonExten)
+            .decode(type: ProductListModel.self, decoder: JSONDecoder(context: DBController.shared.context))
+            do {
+                try prodListToPublish.eraseToAnyPublisher()
+                    .sink(receiveCompletion: { err in
+                        print(err)
+                    }, receiveValue: { model in
+                        try? DBController.shared.save()
+                    })
+                    
+
+                if let directoryLocation = FileManager.default.urls(for: .libraryDirectory, in: .userDomainMask).last {             print("Documents Directory: \(directoryLocation)Application Support")         }
+            }catch{
+                return Fail(outputType: ProductListModel.self, failure: error).eraseToAnyPublisher()
+            }
+            return prodListToPublish.eraseToAnyPublisher()
+        } else {
+            return dbRepo.fetchProductList()
         }
-        return prodListToPublish.eraseToAnyPublisher()
     }
     
     func updateCartItem(prod:ProductModel)throws {

@@ -186,9 +186,11 @@ struct ProductDetailsView: View {
                     OfferList(offers: detailsModel.offers)
                     RectangleSeperatorWithOverlay(height: Constants.Padding.s)
                     AddressSection(address: detailsModel.address, function: self.changeAddressSelected)
+                        .modifier(ScreenPadding())
                     SoldbySection(detailsModel: detailsModel)
                     Group{
                         HeaderView(text: Constants.HomeScreen.suggested)
+                            .modifier(ScreenPadding())
                         SimilarProdCollectionView(columns: self.columns, products: detailsModel.recommeded)
                     }
                 }
@@ -296,22 +298,6 @@ struct ScreenPadding:ViewModifier {
     }
 }
 
-struct RegularText:ViewModifier {
-    func body(content:Content)-> some View {
-        content
-            .font(.system(size: Constants.FontSize.regularSize))
-            .fontWeight(.regular)
-    }
-}
-
-struct LightText:ViewModifier {
-    func body(content:Content)-> some View {
-        content
-            .font(.system(size: Constants.FontSize.lightSize))
-            .fontWeight(.light)
-    }
-}
-
 struct TagModifier:ViewModifier {
     let bgColor:Color
     func body(content: Content) -> some View {
@@ -357,7 +343,7 @@ struct AddressSection:View {
                 function()
             }
             .foregroundColor(Constants.AppColor.blue)
-        }.modifier(ScreenPadding())
+        }
     }
 }
 

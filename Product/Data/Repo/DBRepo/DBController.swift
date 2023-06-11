@@ -28,7 +28,7 @@ struct DBController {
     
     let container = NSPersistentContainer(name: "Product")
     
-    init() {
+    private init() {
         container.loadPersistentStores { descr, error in
             if let error {
                 print(error)

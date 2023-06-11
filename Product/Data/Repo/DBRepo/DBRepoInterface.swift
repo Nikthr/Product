@@ -6,7 +6,7 @@
 //
 
 import Foundation
-
+import Combine
 enum CartUpdate {
     case incr
     case decr
@@ -16,4 +16,7 @@ protocol DBRepoInterface {
     func updateCartItem(update:CartUpdate,
                         prod:ProductModel
                         )throws
+    func checkIfProductsAddedFromStub() ->Bool
+    func fetchProductList() ->AnyPublisher<ProductListModel,Error>
+
 }

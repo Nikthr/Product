@@ -76,7 +76,7 @@ struct HeaderView:View {
                     }
                 }
             }
-        }.modifier(ScreenPadding())
+        }
     }
 }
 
@@ -104,8 +104,10 @@ struct HomeView: View {
         ScrollView{
             VStack {
                 HeaderView(text: "TopRated")
+                    .modifier(ScreenPadding())
                 HorizontalAutoScrollImageView(images: viewModel.topRatedImages)
                 HeaderView(text: "Offers")
+                    .modifier(ScreenPadding())
                 HStack {
                     Image("offer")
                         .resizable()
@@ -126,6 +128,7 @@ struct HomeView: View {
                 .shadow(color:Constants.AppColor.primaryColor,radius: 5)
                 .background(.white)
                 HeaderView(text: "Suggested For You",isRightButtonVisible: true)
+                    .modifier(ScreenPadding())
                    
                 if let products = viewModel.homeModel?.recommeded,products.count > 0 {
                    ProductCollectionView(columns: columns, products: products)
