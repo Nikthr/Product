@@ -82,6 +82,7 @@ struct ProductCell: View {
     }
     
     func cartValueChangeSelected() {
+        product.totalCartCount += 1
         self.cartValueChanged(product)
     }
 }

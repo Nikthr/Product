@@ -37,15 +37,9 @@ extension ProductsViewModel {
                     self.error = CustomError(error: Errors.genericError)
                 }
             } receiveValue: { model in
-                print(model)
                 self.products = model.prodlist
             }
     }
 }
 
-//Cart value changed
-extension ProductsViewModel {
-    func cartValueChanged(for prod:ProductModel) {
-        try? useCase.updateCartItem(prod: prod)
-    }
-}
+

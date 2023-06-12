@@ -13,7 +13,7 @@ struct ProdDetailsModel:Decodable {
     let price:Double
     let discountPercentage:Double
     var discounterPrice:Double = 0
-    let rating:Rating
+    let rating:ProdRating
     let stock:Int
     let isVeg:Bool
     let brand:String
@@ -28,7 +28,7 @@ struct ProdDetailsModel:Decodable {
     let delivery:String
     let paymentReturnOptions:[String]
     let freedelivery:Int
-    let recommeded:[ProductModel]
+    let recommeded:[ProdItem]
     
     enum CodingKeys:CodingKey {
         case id
@@ -59,7 +59,7 @@ struct ProdDetailsModel:Decodable {
         self.price = try container.decode(Double.self, forKey: .price)
         self.discountPercentage = try container.decode(Double.self, forKey: .discountPercentage)
         self.discounterPrice = price - (price * discountPercentage/100)
-        self.rating = try container.decode(Rating.self, forKey: .rating)
+        self.rating = try container.decode(ProdRating.self, forKey: .rating)
         self.stock = try container.decode(Int.self, forKey: .stock)
         self.isVeg = try container.decode(Bool.self, forKey: .isVeg)
         self.brand = try container.decode(String.self, forKey: .brand)
@@ -74,7 +74,7 @@ struct ProdDetailsModel:Decodable {
         self.delivery = try container.decode(String.self, forKey: .delivery)
         self.paymentReturnOptions = try container.decode([String].self, forKey: .paymentReturnOptions)
         self.freedelivery = try container.decode(Int.self, forKey: .freedelivery)
-        self.recommeded = try container.decode([ProductModel].self, forKey: .recommeded)
+        self.recommeded = try container.decode([ProdItem].self, forKey: .recommeded)
     }
 }
 
@@ -86,10 +86,10 @@ struct Address:Decodable {
     let zipCode:String
 }
 
-extension Address:Hashable,Identifiable{
+extension Address:Identifiable{
     var id: String {
         return zipCode
     }
 }
 
-extension ProdDetailsModel:Hashable,Identifiable{}
+extension ProdDetailsModel:Identifiable{}

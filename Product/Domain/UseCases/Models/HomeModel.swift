@@ -7,9 +7,9 @@
 
 import Foundation
 struct HomeModel:Decodable {
-    let toprated:[ProductModel]
+    let toprated:[ProdItem]
     let offers:Offer
-    let recommeded:[ProductModel]
+    let recommeded:[ProdItem]
 }
 
 struct Offer:Decodable {

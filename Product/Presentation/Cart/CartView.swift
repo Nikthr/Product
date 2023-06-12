@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CartView:View {
     var viewModel:CartViewModel
-    @FetchRequest(sortDescriptors:[],predicate: NSPredicate(format:  "totalCartCount > 0")) var cartItems:FetchedResults<ProductModel>
+    @FetchRequest(sortDescriptors:[],predicate: NSPredicate(format:  "totalCartCount > 0")) private var cartItems:FetchedResults<ProductModel>
     let columns = [GridItem(.flexible())]
     
     private var sum: Double {

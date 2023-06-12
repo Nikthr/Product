@@ -26,13 +26,13 @@ struct RectangleSeperatorWithOverlay:View {
 
 struct SimilarProdCollectionView:View {
     let columns:[GridItem]
-    let products:[ProductModel]
+    let products:[ProdItem]
     @State var currVal:Int = 0
     var body: some View {
         LazyVGrid(columns: columns,spacing: 10) {
         ForEach(products, id: \.id) { product in
             VStack {
-                Image(product.images?.first ?? "")
+                Image(product.images.first ?? "")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width:150,height: 150)

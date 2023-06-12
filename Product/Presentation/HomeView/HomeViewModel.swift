@@ -31,7 +31,7 @@ class HomeViewModel:ObservableObject {
                         self.error = CustomError(error: Errors.genericError)
                     }
                 case .finished:
-                    self.error = CustomError(error: Errors.genericError)
+                    DBController.shared.context.reset()
                 }
             } receiveValue :{ model in
                 self.homeModel = model
@@ -44,7 +44,7 @@ class HomeViewModel:ObservableObject {
             topRatedImages.removeAll()
             var images:[String] = []
             for product in topRated {
-                if let image = product.images?.first {
+                if let image = product.images.first {
                     images.append(image)
                 }
             }

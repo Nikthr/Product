@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CartCell: View {
-    @State var carItem:ProductModel
+    @ObservedObject var carItem: ProductModel
     var body: some View {
         HStack(alignment:.top) {
             VStack(alignment: .leading) {

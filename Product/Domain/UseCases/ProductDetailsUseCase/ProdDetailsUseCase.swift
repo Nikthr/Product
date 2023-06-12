@@ -16,7 +16,7 @@ struct ProdDetailsUseCase:ProdDetailsUseCaseInterface {
     func getProdDetails(prodId:String) -> AnyPublisher<ProdDetailsModel,Error> {
         productRepo.getProdDetails(jsonName: Constants.ProdScreen.prodDetails,
                                   exten: Constants.Common.jsonExten)
-        .decode(type: ProdDetailsModel.self, decoder: JSONDecoder(context: DBController.shared.context))
+        .decode(type: ProdDetailsModel.self, decoder: JSONDecoder())
         .eraseToAnyPublisher()
     }
 }
