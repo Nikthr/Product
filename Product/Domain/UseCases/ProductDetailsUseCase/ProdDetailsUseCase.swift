@@ -9,9 +9,11 @@ import Foundation
 struct ProdDetailsUseCase:ProdDetailsUseCaseInterface {
     
     let productRepo:ProdDetailsRepoInterface
+    let dbRepo:DBRepoInterface
     
-    init(productRepo: ProdDetailsRepoInterface) {
+    init(productRepo: ProdDetailsRepoInterface,dbRepo:DBRepoInterface) {
         self.productRepo = productRepo
+        self.dbRepo = dbRepo
     }
     func getProdDetails(prodId:String) -> AnyPublisher<ProdDetailsModel,Error> {
         productRepo.getProdDetails(jsonName: Constants.ProdScreen.prodDetails,
@@ -21,5 +23,6 @@ struct ProdDetailsUseCase:ProdDetailsUseCaseInterface {
     }
     
     func updateCartItem(prod:ProductModel,update:StepperCompUpdate) {
+        dbRepo.updateCartItem(prod: prod, update: update)
     }
 }

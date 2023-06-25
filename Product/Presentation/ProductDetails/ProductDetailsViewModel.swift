@@ -11,17 +11,17 @@ import Combine
 class ProductDetailsViewModel:ObservableObject {
     @Published var detailsModel:ProdDetailsModel?
     @Published var error:CustomError?
-    var prodId:String
+    var prod:ProductModel
     private let useCase:ProdDetailsUseCaseInterface
     private var cancellable:AnyCancellable?
     
-    init(prodId:String) {
-        useCase = ProdDetailsUseCase(productRepo: ProdDetailsRepoStub())
-        self.prodId = prodId
+    init(prod:ProductModel) {
+        useCase = ProdDetailsUseCase(productRepo: ProdDetailsRepoStub(), dbRepo: DBRepo())
+        self.prod = prod
     }
 
     func getProdDetails() {
-       cancellable = useCase.getProdDetails(prodId: prodId)
+        cancellable = useCase.getProdDetails(prodId: self.prod.id)
             .sink { error in
                 print(error)
                 switch error {
@@ -41,7 +41,15 @@ class ProductDetailsViewModel:ObservableObject {
 
     }
     
-    func cartValueChanged(_ prod:ProductModel,update:StepperCompUpdate) {
-        self.useCase.updateCartItem(prod: prod, update: update)
+    func cartValueChanged() {
+        self.useCase.updateCartItem(prod: self.prod, update: .incr)
+    }
+    
+    func addToCartFromSimilarProds(addedItem:ProductModel) {
+        self.useCase.updateCartItem(prod: addedItem, update: .incr)
+    }
+    
+    func changeAddressSelected() {
+        print("Change address selected")
     }
 }

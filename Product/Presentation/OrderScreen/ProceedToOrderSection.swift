@@ -8,26 +8,26 @@
 import SwiftUI
 
 struct ProceedToOrderSection<Content:View>: View {
+    @Binding var moveToOrderCompletedView:Bool
     @ViewBuilder var textcontent:Content
     var body: some View {
         VStack(alignment:.leading,spacing:Constants.Padding.ls){
             textcontent
-            NavigationLink(destination: Text("")) {
-                Button{
-                }label:{
-                    Text(String(format: Constants.OrderScreen.proceedToOrderText))
-                        .frame(maxWidth:.infinity)
-                        .padding()
-                }
-                .buttonStyle(PrimaryButtonStyle())
+            Button{
+                moveToOrderCompletedView = true
+            }label:{
+                Text(String(format: Constants.OrderScreen.proceedToOrderText))
+                    .frame(maxWidth:.infinity)
+                    .padding()
             }
+            .buttonStyle(PrimaryButtonStyle())
         }
     }
 }
 
 struct ProceedToOrderSection_Previews: PreviewProvider {
     static var previews: some View {
-        ProceedToOrderSection{ EmptyView()
+        ProceedToOrderSection(moveToOrderCompletedView: .constant(true)){ EmptyView()
         }
     }
 }

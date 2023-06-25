@@ -16,7 +16,7 @@ struct ProductView:View {
                 LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
                     ForEach(viewModel.products) { product in
                         NavigationLink {
-                            ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: product.id))
+                            ProductDetailsView(viewModel: ProductDetailsViewModel(prod: product))
                         } label: {
                             ProductCell(product: product, cartValueChanged: viewModel.cartValueChanged)
                             .modifier(ScreenPadding())

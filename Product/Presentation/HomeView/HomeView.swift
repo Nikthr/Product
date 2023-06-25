@@ -66,7 +66,8 @@ struct HeaderView:View {
             Spacer()
             if(isRightButtonVisible) {
                 NavigationLink {
-                    ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: "1"))
+                    //TODO:Go to prodlist
+//                    ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: "1"))
                 } label: {
                     HStack {
                         Text("View All")

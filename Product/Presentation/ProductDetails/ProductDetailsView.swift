@@ -24,55 +24,16 @@ struct RectangleSeperatorWithOverlay:View {
     }
 }
 
+
 struct SimilarProdCollectionView:View {
     let columns:[GridItem]
     let products:[ProductModel]
+    var addToCartFromSimilarProds:(_ prod:ProductModel)->Void
     @State var currVal:Int = 0
     var body: some View {
         LazyVGrid(columns: columns,spacing: 10) {
         ForEach(products, id: \.id) { product in
-            VStack {
-                Image(product.images.first ?? "")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width:150,height: 150)
-                VStack {
-                    HStack {
-                        Text(product.title)
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .padding(.leading)
-                            .foregroundColor(Constants.AppColor.primartTextColor)
-                        Spacer()
-                    }
-                    HStack{
-                        Text(currencyFormatter.string(from: (product.price) as NSNumber) ?? "")
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .strikethrough()
-                            .foregroundColor(Constants.AppColor.secondaryTextColor)
-                            .padding(.leading)
-                        Spacer()
-                        Text(currencyFormatter.string(from: (product.discounterPrice) as NSNumber) ?? "")
-                            .fontWeight(.light)
-                            .font(.system(size: 14))
-                            .padding(.trailing)
-                            .foregroundColor(Constants.AppColor.primartTextColor)
-                    }
-                }
-                HStack {
-                    Spacer()
-                    Button(Constants.Common.addtocart, action: cartValueChanged)
-                        .buttonStyle(PrimaryButtonStyle())
-                }
-            }
-            .clipShape(RoundedRectangle(cornerRadius: 5))
-            .overlay(
-                RoundedRectangle(cornerRadius: 5)
-                    .inset(by: 0.5) // inset value should be same as lineWidth in .stroke
-                    .stroke(Constants.AppColor.primaryColor, lineWidth: 0.5)
-            )
-            .background(Constants.AppColor.white)
+            SimilarProductCell(product: product,addedItemToCart: addToCartFromSimilarProds)
         }
         .modifier(ScreenPadding())
      }
@@ -87,9 +48,6 @@ struct SimilarProdCollectionView:View {
      }
      .toolbarBackground(Constants.AppColor.primaryColor, for:.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
      .toolbarBackground(.visible, for: .navigationBar)
-    }
-    
-    func cartValueChanged() {
     }
 }
 
@@ -147,7 +105,7 @@ struct ProductDetailsView: View {
                                    totalRating: Int(detailsModel.rating.totalRating))
                         ProductDetailsText(detailsText: detailsModel.details)
 
-                        Button(action: addToCartSelected) {
+                        Button(action: viewModel.cartValueChanged) {
                             Text(Constants.Common.addtocart)
                                 .frame(maxWidth:.infinity)
                                 .padding()
@@ -195,13 +153,15 @@ struct ProductDetailsView: View {
                     RectangleSeperatorWithOverlay(height: Constants.Padding.s)
                     OfferList(offers: detailsModel.offers)
                     RectangleSeperatorWithOverlay(height: Constants.Padding.s)
-                    AddressSection(address: detailsModel.address, function: self.changeAddressSelected)
+                    AddressSection(address: detailsModel.address, function: viewModel.changeAddressSelected)
                         .modifier(ScreenPadding())
                     SoldbySection(detailsModel: detailsModel)
                     Group{
                         HeaderView(text: Constants.HomeScreen.suggested)
                             .modifier(ScreenPadding())
-                        SimilarProdCollectionView(columns: self.columns, products: detailsModel.recommeded)
+                        SimilarProdCollectionView(columns: self.columns,
+                                                  products: detailsModel.recommeded,
+                                                  addToCartFromSimilarProds:viewModel.addToCartFromSimilarProds)
                     }
                 }
               }
@@ -281,21 +241,12 @@ extension ProductDetailsView {
     }
 }
 
-struct ProductDetailsView_Previews: PreviewProvider {
-    static var previews: some View {
-        ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: "1"))
-    }
-}
+//struct ProductDetailsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ProductDetailsView(viewModel: ProductDetailsViewModel(prod: <#ProductModel#>))
+//    }
+//}
 
-//Button Actions
-extension ProductDetailsView {
-    func changeAddressSelected() {
-        print("Change address selected")
-    }
-    func addToCartSelected() {
-        print("add to cart selected")
-    }
-}
 
 //Screen Padding
 struct ScreenPadding:ViewModifier {
