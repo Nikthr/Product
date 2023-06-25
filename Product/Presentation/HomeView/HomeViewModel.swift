@@ -30,8 +30,7 @@ class HomeViewModel:ObservableObject {
                     }else {
                         self.error = CustomError(error: Errors.genericError)
                     }
-                case .finished:
-                    DBController.shared.context.reset()
+                case .finished: break
                 }
             } receiveValue :{ model in
                 self.homeModel = model

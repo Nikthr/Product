@@ -26,7 +26,7 @@ struct RectangleSeperatorWithOverlay:View {
 
 struct SimilarProdCollectionView:View {
     let columns:[GridItem]
-    let products:[ProdItem]
+    let products:[ProductModel]
     @State var currVal:Int = 0
     var body: some View {
         LazyVGrid(columns: columns,spacing: 10) {
@@ -62,8 +62,8 @@ struct SimilarProdCollectionView:View {
                 }
                 HStack {
                     Spacer()
-                    AddItemButton(currentValue: currVal, cartValueChange: cartValueChanged)
-                        .padding(Constants.Padding.ds)
+                    Button(Constants.Common.addtocart, action: cartValueChanged)
+                        .buttonStyle(PrimaryButtonStyle())
                 }
             }
             .clipShape(RoundedRectangle(cornerRadius: 5))
@@ -76,10 +76,20 @@ struct SimilarProdCollectionView:View {
         }
         .modifier(ScreenPadding())
      }
+     .toolbar {
+        ToolbarItem(placement: .principal) {
+            VStack {
+                Text("Product Details")
+                    .bold()
+                    .foregroundColor(.white)
+            }
+        }
+     }
+     .toolbarBackground(Constants.AppColor.primaryColor, for:.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+     .toolbarBackground(.visible, for: .navigationBar)
     }
     
-    func cartValueChanged(value:Int) {
-        print(value)
+    func cartValueChanged() {
     }
 }
 

@@ -11,7 +11,7 @@ import UIKit
 
 struct ProductCollectionView:View {
     let columns:[GridItem]
-    let products:[ProdItem]
+    let products:[ProductModel]
     var body: some View {
         LazyVGrid(columns: columns,spacing: 10) {
         ForEach(products) { product in

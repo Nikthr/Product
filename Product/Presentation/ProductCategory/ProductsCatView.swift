@@ -56,6 +56,17 @@ struct ProductsCatView:View {
 //             }
 //         })
 
+         .toolbar {
+             ToolbarItem(placement: .principal) {
+                 VStack {
+                     Text("Category")
+                         .bold()
+                         .foregroundColor(.white)
+                 }
+             }
+         }
+         .toolbarBackground(Constants.AppColor.primaryColor, for:.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+         .toolbarBackground(.visible, for: .navigationBar)
     }
 
 }

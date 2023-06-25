@@ -11,7 +11,6 @@ struct OrderDetailsModel:Decodable {
     
 }
 
-
 struct PriceBreakUpModel:Decodable,Hashable {
     let priceBreakUp:[PriceBreakUp]
     let total:PriceBreakUp

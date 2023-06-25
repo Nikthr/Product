@@ -40,4 +40,8 @@ class ProductDetailsViewModel:ObservableObject {
             }
 
     }
+    
+    func cartValueChanged(_ prod:ProductModel,update:StepperCompUpdate) {
+        self.useCase.updateCartItem(prod: prod, update: update)
+    }
 }

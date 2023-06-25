@@ -12,45 +12,64 @@ struct Container: View {
             NavigationStack{
                 HomeView()
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("NMart")
-                    .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar)//To change Nvigation Bar Add comma and add after .tabbar- .navigationBar
-                    .toolbarBackground(.visible, for: .tabBar)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("NMart")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                    .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar,.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+                    .toolbarBackground(.visible, for: .tabBar,.navigationBar)
 
             }
             .tabItem {
                 Label("Home", systemImage: "homekit")
-                    .foregroundColor(.black)
             }
             
             NavigationStack{
                 ProductsCatView()
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Products")
-                .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar)//To change Nvigation Bar Add comma and add after .tabbar- .navigationBar
-                .toolbarBackground(.visible, for: .tabBar)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("Category")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                    .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar,.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+                    .toolbarBackground(.visible, for: .tabBar,.navigationBar)
             }
             .tabItem {
                 Label {
                     Text("Products")
-                        .foregroundColor(.red)
-                        .background(.white)
                 } icon: {
                     Image(systemName: "chart.pie.fill")
                 }
             }
             
             NavigationStack{
-                CartView(viewModel: CartViewModel())
+                CartView(viewModel: CartViewModel(cartUseCase: CartUseCase(dbRepo: DBRepo())))
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Cart")
-                .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar)//To change Nvigation Bar Add comma and add after .tabbar- .navigationBar
-                .toolbarBackground(.visible, for: .tabBar)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("Cart")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                    .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar,.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+                    .toolbarBackground(.visible, for: .tabBar,.navigationBar)
             }
             .tabItem {
                 Label {
                     Text("Cart")
-                        .foregroundColor(.red)
-                        .background(.white)
                 } icon: {
                     Image(systemName: "cart")
                 }
@@ -60,15 +79,21 @@ struct Container: View {
             NavigationStack{
                 Text("Profile")
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("Profile")
-                .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar)//To change Nvigation Bar Add comma and add after .tabbar- .navigationBar
-                .toolbarBackground(.visible, for: .tabBar)
+                    .toolbar {
+                        ToolbarItem(placement: .principal) {
+                            VStack {
+                                Text("Profile")
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                    }
+                    .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar,.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
+                    .toolbarBackground(.visible, for: .tabBar,.navigationBar)
             }
             .tabItem {
                 Label {
                     Text("Profile")
-                        .foregroundColor(.red)
-                        .background(.white)
                 } icon: {
                     Image(systemName: "chart.pie.fill")
                 }

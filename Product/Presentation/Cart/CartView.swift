@@ -8,49 +8,50 @@
 import SwiftUI
 
 struct CartView:View {
-    var viewModel:CartViewModel
-    @FetchRequest(sortDescriptors:[],predicate: NSPredicate(format:  "totalCartCount > 0")) private var cartItems:FetchedResults<ProductModel>
+    @ObservedObject var viewModel:CartViewModel
     let columns = [GridItem(.flexible())]
-    
-    private var sum: Double {
-        cartItems.reduce(0) { $0 + $1.discounterPrice }
-    }
+    @State var moveToOrderView = false
     var body: some View {
-        if(cartItems.count > 0) {
-            ProceedToCheckoutSection(sum: Int(sum),itemsCount:cartItems.count)
-                .modifier(ScreenPadding())
-            ScrollView {
-                LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
-                    ForEach(cartItems) { item in
-                        CartCell(carItem: item)
-                            .modifier(ScreenPadding())
-                            .background(Constants.AppColor.white)
+        VStack{
+            if(viewModel.cartItems.count > 0) {
+                ProceedToCheckoutSection(sum: Int(viewModel.totalPrice),itemsCount:viewModel.cartItems.count, moveToOrderView: $moveToOrderView)
+                    .modifier(ScreenPadding())
+                    .navigationDestination(isPresented: $moveToOrderView) {
+                        OrderView()
+                    }
+                ScrollView {
+                    LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
+                        ForEach(viewModel.cartItems) { item in
+                            CartCell(carItem: item, cartValueChanged: viewModel.cartValueChanged)
+                                .modifier(ScreenPadding())
+                                .background(Constants.AppColor.white)
+                        }
                     }
                 }
+                .background(Constants.AppColor.backgroundColor)
+                .scrollContentBackground(.hidden)
+            }else {
+                EmptyCartView()
             }
-            .background(Constants.AppColor.backgroundColor)
-            .scrollContentBackground(.hidden)
-        }else {
-            EmptyCartView()
+        }
+        .onAppear{
+            viewModel.getCartItems()
         }
     }
-    
 }
 
 
 struct EmptyCartView:View {
     var body: some View {
-        VStack {
-            HStack{
-                Image(systemName:"cart").resizable()
-                    .frame(width: Constants.ImageSize.widthIcon,
-                           height: Constants.ImageSize.heightIcon)
-                    .foregroundColor(Constants.AppColor.secondaryTextColor)
-                Text("Your cart is empty")
-                    .font(.system(size: Constants.FontSize.largeSize))
-                    .fontWeight(.light)
-                    .foregroundColor(Constants.AppColor.secondaryTextColor)
-            }
+        HStack{
+            Image(systemName:"cart").resizable()
+                .frame(width: Constants.ImageSize.widthIcon,
+                       height: Constants.ImageSize.heightIcon)
+                .foregroundColor(Constants.AppColor.secondaryTextColor)
+            Text("Your cart is empty")
+                .font(.system(size: Constants.FontSize.largeSize))
+                .fontWeight(.light)
+                .foregroundColor(Constants.AppColor.secondaryTextColor)
         }
     }
 }
@@ -58,6 +59,6 @@ struct EmptyCartView:View {
 
 struct CartView_Previews: PreviewProvider {
     static var previews: some View {
-        CartView(viewModel: CartViewModel())
+        CartView(viewModel: CartViewModel(cartUseCase: CartUseCase(dbRepo: DBRepo())))
     }
 }

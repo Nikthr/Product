@@ -21,12 +21,11 @@ extension ProdListUseCase {
     func getProdList(catHeirarchy:[String]) -> AnyPublisher<ProductListModel,Error> {
         return productRepo.getProdList(jsonName: Constants.ProdScreen.prodList,
                                                         exten: Constants.Common.jsonExten)
-        .decode(type: ProductListModel.self, decoder: JSONDecoder(context: DBController.shared.context))
+        .decode(type: ProductListModel.self, decoder: JSONDecoder())
         .eraseToAnyPublisher()
     }
     
-    func updateCartItem(prod:ProductModel)throws {
-         try dbRepo.updateCartItem(update: .incr,
-                                   prod:prod)
+    func updateCartItem(prod:ProductModel,update:StepperCompUpdate) {
+        dbRepo.updateCartItem(prod:prod, update: update)
     }
 }

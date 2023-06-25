@@ -23,6 +23,11 @@ struct AddItemView:View {
     }
 }
 
+enum StepperCompUpdate {
+    case incr
+    case decr
+}
+
 struct StepperComponentStyle:ButtonStyle {
     func makeBody(configuration: Configuration) -> some View {
             configuration.label
@@ -39,12 +44,12 @@ struct StepperComponentStyle:ButtonStyle {
 
 struct StepperComponent: View {
     @Binding var stepperValue:Int
-    var stepperValueChange: (Int) -> Void
+    var stepperValueChange: (Int,StepperCompUpdate) -> Void
     var body: some View {
         HStack {
             Button("+") {
                 stepperValue += 1
-                stepperValueChange(stepperValue)
+                stepperValueChange(stepperValue, .incr)
             }
             .buttonStyle(StepperComponentStyle())
             Text(String(stepperValue))
@@ -53,7 +58,7 @@ struct StepperComponent: View {
             
             Button("-") {
                 stepperValue -= 1
-                stepperValueChange(stepperValue)
+                stepperValueChange(stepperValue, .decr)
                 
             }
             .buttonStyle(StepperComponentStyle())
@@ -64,7 +69,7 @@ struct StepperComponent: View {
 
 struct AddItemButton: View {
     @State var currentValue:Int
-    var cartValueChange: (Int) -> Void
+    var cartValueChange: (Int,StepperCompUpdate) -> Void
     var body: some View {
         HStack{
             if currentValue != 0 {
@@ -72,7 +77,7 @@ struct AddItemButton: View {
             }else {
                 Button {
                     currentValue += 1
-                    cartValueChange(currentValue)
+                    cartValueChange(currentValue, .incr)
                 } label: {
                     AddItemView()
                 }
@@ -95,6 +100,6 @@ struct AddItemButton_Previews: PreviewProvider {
     
 }
 
-func addedRemovedItem(cartCount:Int) {
+func addedRemovedItem(cartCount:Int,update:StepperCompUpdate) {
     print(cartCount)
 }

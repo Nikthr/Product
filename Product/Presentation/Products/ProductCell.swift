@@ -13,7 +13,7 @@ struct ProductCell: View {
     var body: some View {
         HStack(alignment:.top) {
             VStack(alignment: .leading) {
-                Image(product.images?.first ?? "")
+                Image(product.images.first ?? "")
                     .resizable()
                     .modifier(Constants.ProdListScreen.ProductImageFrame())
                     .padding(.trailing,Constants.Padding.s)
@@ -82,7 +82,6 @@ struct ProductCell: View {
     }
     
     func cartValueChangeSelected() {
-        product.totalCartCount += 1
         self.cartValueChanged(product)
     }
 }

@@ -9,4 +9,5 @@ import Foundation
 import Combine
 protocol ProdDetailsUseCaseInterface {
     func getProdDetails(prodId:String) -> AnyPublisher<ProdDetailsModel,Error>
+    func updateCartItem(prod:ProductModel,update:StepperCompUpdate)
 }

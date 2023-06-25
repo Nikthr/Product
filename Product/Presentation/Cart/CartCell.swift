@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct CartCell: View {
-    @ObservedObject var carItem: ProductModel
+    @State var carItem: ProductModel
+    var cartValueChanged:(_ prod:ProductModel,_ update:StepperCompUpdate)->Void
     var body: some View {
         HStack(alignment:.top) {
             VStack(alignment: .leading) {
-                Image(carItem.images?.first ?? "")
+                Image(carItem.images.first ?? "")
                     .resizable()
                     .modifier(Constants.ProdListScreen.cartImageFrame())
                     .padding(.trailing,Constants.Padding.s)
@@ -62,14 +63,15 @@ struct CartCell: View {
                 Spacer()
                 HStack {
                     Spacer()
-                    AddItemButton(currentValue: Int(carItem.totalCartCount), cartValueChange: cartValueChange)
+                    AddItemButton(currentValue: Int(carItem.totalCartCount), cartValueChange: updatecartValue)
                 }
             }
         }
     }
     
-    func cartValueChange(value:Int) {
-        
+    func updatecartValue(value:Int,update:StepperCompUpdate) {
+        carItem.totalCartCount = value
+        self.cartValueChanged(carItem, update)
     }
 }
 

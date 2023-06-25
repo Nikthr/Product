@@ -42,4 +42,8 @@ extension ProductsViewModel {
     }
 }
 
-
+extension ProductsViewModel {
+    func cartValueChanged(for prod:ProductModel) {
+        useCase.updateCartItem(prod: prod, update: .incr)
+    }
+}

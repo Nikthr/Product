@@ -11,42 +11,18 @@ import Combine
 
 struct DBRepo {}
 extension DBRepo:DBRepoInterface {
-    func updateCartItem(update:CartUpdate,
-                        prod:ProductModel)throws {
-        if(update == .incr) {
-            prod.totalCartCount += 1
-        } else {
-            prod.totalCartCount -= 1
-        }
-        try! DBController.shared.save()
+    func updateCartItem(prod:ProductModel,update:StepperCompUpdate) {
+        CartData.shared.updateCart(product: prod, update: update)
     }
     
-    func checkIfProductsAddedFromStub() -> Bool {
-        //Remove already existing from context
-        DBController.shared.context.reset()
-        var itemExists = false
-        do {
-            let count = try DBController.shared.context.count(for:ProductModel.fetchRequest())
-            itemExists = (count > 0)
-        }catch {
-            fatalError("Failed to fetch from DB")
-        }
-        return itemExists
+    func observerForCartValues() -> PassthroughSubject<[ProductModel],Never> {
+        CartData.shared.observer()
     }
     
-    func fetchProductList() -> AnyPublisher<ProductListModel,Error> {
-        do {
-            let prodList = try DBController.shared.context.fetch(ProductModel.fetchRequest()) as [ProductModel]
-            print(prodList)
-            return Just(ProductListModel(prodlist: prodList))
-                .mapError { error in
-                CustomError(error: Errors.genericError)
-            }
-                .eraseToAnyPublisher()
-        }catch {
-            return Fail(outputType: ProductListModel.self, failure: error).eraseToAnyPublisher()
-        }
+    func getCartItems() {
+        CartData.shared.getcartItems()
     }
+
 }
     
 

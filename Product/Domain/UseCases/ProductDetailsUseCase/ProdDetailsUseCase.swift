@@ -19,4 +19,7 @@ struct ProdDetailsUseCase:ProdDetailsUseCaseInterface {
         .decode(type: ProdDetailsModel.self, decoder: JSONDecoder())
         .eraseToAnyPublisher()
     }
+    
+    func updateCartItem(prod:ProductModel,update:StepperCompUpdate) {
+    }
 }

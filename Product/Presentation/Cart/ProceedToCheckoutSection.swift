@@ -10,6 +10,7 @@ import SwiftUI
 struct ProceedToCheckoutSection: View {
     let sum:Int
     let itemsCount:Int
+    @Binding var moveToOrderView:Bool
     var body: some View {
         VStack(alignment:.leading) {
             HStack{
@@ -27,17 +28,14 @@ struct ProceedToCheckoutSection: View {
                     .foregroundColor(Constants.AppColor.green)
                 Text("Free delivery")
             }
-            NavigationLink(destination: OrderView()) {
-                Button{
-                    
-                }label:{
-                    Text(String(format: "Proceed to check out (%d item)", itemsCount))
-                        .frame(maxWidth:.infinity)
-                        .padding()
-                }
-                .buttonStyle(PrimaryButtonStyle())
+            Button{
+                moveToOrderView = true
+            }label:{
+                Text(String(format: "Proceed to check out (%d item)", itemsCount))
+                    .frame(maxWidth:.infinity)
+                    .padding()
             }
-            
+            .buttonStyle(PrimaryButtonStyle())
         }
 
     }
@@ -45,6 +43,6 @@ struct ProceedToCheckoutSection: View {
 
 struct ProceedToCheckoutSection_Previews: PreviewProvider {
     static var previews: some View {
-        ProceedToCheckoutSection(sum: 2, itemsCount: 1)
+        ProceedToCheckoutSection(sum: 2, itemsCount: 1, moveToOrderView: .constant(true))
     }
 }

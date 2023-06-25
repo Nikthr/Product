@@ -13,7 +13,6 @@ struct ProductApp: App {
     var body: some Scene {
         WindowGroup {
             Container()
-                .environment(\.managedObjectContext, DBController.shared.context)
         }
     }
 }
