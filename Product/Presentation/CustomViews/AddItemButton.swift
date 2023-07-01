@@ -97,7 +97,6 @@ struct AddItemButton_Previews: PreviewProvider {
         AddItemButton(currentValue: 1, cartValueChange: addedRemovedItem)
     }
     
-    
 }
 
 func addedRemovedItem(cartCount:Int,update:StepperCompUpdate) {

@@ -9,14 +9,14 @@ import UIKit
 import SwiftUI
 
 struct ProductView:View {
-    @ObservedObject var viewModel = ProductsViewModel()
+    @ObservedObject var viewModel:ProductsViewModel
     let columns = [GridItem(.flexible())]
     var body: some View {
             ScrollView {
                 LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
                     ForEach(viewModel.products) { product in
                         NavigationLink {
-                            ProductDetailsView(viewModel: ProductDetailsViewModel(prod: product))
+                            ViewContainer.createProdDetailsView(prod: product)
                         } label: {
                             ProductCell(product: product, cartValueChanged: viewModel.cartValueChanged)
                             .modifier(ScreenPadding())
@@ -52,6 +52,6 @@ struct ProductView:View {
 
 struct ProductView_Previews: PreviewProvider {
     static var previews: some View {
-        ProductView()
+        ViewContainer.createProdView()
     }
 }

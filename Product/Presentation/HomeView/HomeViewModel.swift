@@ -16,8 +16,8 @@ class HomeViewModel:ObservableObject {
     @Published var topRatedImages:[String] = []
     @Published var error:CustomError?
     
-    init() {
-        useCase = HomeUseCase(homeRepo: HomeRepoStubs())
+    init(useCase:HomeUseCaseInterface) {
+        self.useCase = useCase 
     }
     
     func readData() {

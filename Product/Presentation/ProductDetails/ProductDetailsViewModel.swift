@@ -15,15 +15,14 @@ class ProductDetailsViewModel:ObservableObject {
     private let useCase:ProdDetailsUseCaseInterface
     private var cancellable:AnyCancellable?
     
-    init(prod:ProductModel) {
-        useCase = ProdDetailsUseCase(productRepo: ProdDetailsRepoStub(), dbRepo: DBRepo())
+    init(prod:ProductModel,useCase:ProdDetailsUseCaseInterface) {
+        self.useCase = useCase
         self.prod = prod
     }
 
     func getProdDetails() {
         cancellable = useCase.getProdDetails(prodId: self.prod.id)
             .sink { error in
-                print(error)
                 switch error {
                 case .failure(let err) :
                     if let err = err as? CustomError {
@@ -32,10 +31,9 @@ class ProductDetailsViewModel:ObservableObject {
                         self.error = CustomError(error: Errors.genericError)
                     }
                 case .finished:
-                    self.error = CustomError(error: Errors.genericError)
+                    break
                 }
             } receiveValue: { details in
-                print(details)
                 self.detailsModel = details
             }
 

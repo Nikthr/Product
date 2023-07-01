@@ -27,7 +27,7 @@ struct ProceedToOrderSection<Content:View>: View {
 
 struct ProceedToOrderSection_Previews: PreviewProvider {
     static var previews: some View {
-        ProceedToOrderSection(moveToOrderCompletedView: .constant(true)){ EmptyView()
+        ProceedToOrderSection(moveToOrderCompletedView: .constant(true)){
         }
     }
 }

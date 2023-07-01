@@ -2,15 +2,23 @@
 import Foundation
 import SwiftUI
 
+enum Tab {
+    case home
+    case prod
+    case cart
+    case profile
+}
+
+class SelectedTab:ObservableObject {
+    @Published var selected:Tab = .home
+}
+
 struct Container: View {
-    init() {
-        let navBarAppearance = UINavigationBar.appearance()
-        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(hue: 0.505, saturation: 0.496, brightness: 0.489, alpha: 1.0)]
-    }
+    @ObservedObject var selection = SelectedTab()
     var body: some View {
-        TabView {
+        TabView(selection:$selection.selected) {
             NavigationStack{
-                HomeView()
+                ViewContainer.createHomeView()
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -28,9 +36,10 @@ struct Container: View {
             .tabItem {
                 Label("Home", systemImage: "homekit")
             }
+            .tag(Tab.home)
             
             NavigationStack{
-                ProductsCatView()
+                ViewContainer.createCatView()
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -51,9 +60,11 @@ struct Container: View {
                     Image(systemName: "chart.pie.fill")
                 }
             }
+            .tag(Tab.prod)
+
             
             NavigationStack{
-                CartView(viewModel: CartViewModel(cartUseCase: CartUseCase(dbRepo: DBRepo())))
+                ViewContainer.createCartView()
                     .navigationBarTitleDisplayMode(.inline)
                     .toolbar {
                         ToolbarItem(placement: .principal) {
@@ -67,6 +78,7 @@ struct Container: View {
                     .toolbarBackground(Constants.AppColor.primaryColor, for:.tabBar,.navigationBar)//To change Navigation Bar Add comma and add after .tabbar- .navigationBar
                     .toolbarBackground(.visible, for: .tabBar,.navigationBar)
             }
+            .environmentObject(selection)
             .tabItem {
                 Label {
                     Text("Cart")
@@ -74,7 +86,9 @@ struct Container: View {
                     Image(systemName: "cart")
                 }
             }
+            .tag(Tab.cart)
             .badge(3)
+
 
             NavigationStack{
                 Text("Profile")
@@ -98,6 +112,7 @@ struct Container: View {
                     Image(systemName: "chart.pie.fill")
                 }
             }
+            .tag(Tab.profile)
         }
         .tint(Color(.white))
     }

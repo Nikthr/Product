@@ -9,7 +9,7 @@ import UIKit
 import SwiftUI
 
 struct ProductsCatView:View {
-    @ObservedObject var viewModel = ProductsCatViewModel()
+    @ObservedObject var viewModel:ProductsCatViewModel
     let gridColoumn = [GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible()),GridItem(.flexible())]
     var body: some View {
         VStack {
@@ -20,7 +20,7 @@ struct ProductsCatView:View {
                             ProductsCatView(viewModel: ProductsCatViewModel(selections: viewModel.getSelectedCatList(id:cat.id), categories: subCat))
                         } else {
                             //ProductList screen
-                            ProductView()
+                            ViewContainer.createProdView()
                         }
                     } label: {
                         VStack{

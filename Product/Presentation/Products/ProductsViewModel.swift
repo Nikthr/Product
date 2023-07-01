@@ -15,8 +15,8 @@ class ProductsViewModel:ObservableObject {
     private let useCase:ProdListUseCaseInterface
     private var cancellable:AnyCancellable?
     
-    init() {
-        useCase = ProdListUseCase(productRepo: ProdListRepoStub(), dbRepo: DBRepo())
+    init(useCase:ProdListUseCaseInterface) {
+        self.useCase = useCase
     }
 }
 
@@ -25,7 +25,6 @@ extension ProductsViewModel {
     func getProdList(catHeirarchy:[String])  {
         cancellable = useCase.getProdList(catHeirarchy: catHeirarchy)
             .sink { error in
-                print(error)
                 switch error {
                 case .failure(let err) :
                     if let err = err as? CustomError {

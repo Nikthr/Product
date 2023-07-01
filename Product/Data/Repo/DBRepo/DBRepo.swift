@@ -23,6 +23,9 @@ extension DBRepo:DBRepoInterface {
         CartData.shared.getcartItems()
     }
 
+    func removeCartItems() {
+        CartData.shared.removeCartItems()
+    }
 }
     
 

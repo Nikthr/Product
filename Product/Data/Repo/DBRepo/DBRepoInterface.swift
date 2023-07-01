@@ -12,4 +12,5 @@ protocol DBRepoInterface {
     func updateCartItem(prod:ProductModel,update:StepperCompUpdate)
     func observerForCartValues() -> PassthroughSubject<[ProductModel],Never>
     func getCartItems()
+    func removeCartItems()
 }

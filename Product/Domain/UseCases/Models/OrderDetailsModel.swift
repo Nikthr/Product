@@ -8,21 +8,25 @@
 import Foundation
 
 struct OrderDetailsModel:Decodable {
-    
+    let address:Address
+    let payment:Payment
+    let delivery:Delivery
+    let policy:String
 }
 
-struct PriceBreakUpModel:Decodable,Hashable {
-    let priceBreakUp:[PriceBreakUp]
-    let total:PriceBreakUp
-}
-
-struct PriceBreakUp:Decodable,Hashable {
+struct Delivery:Decodable {
     let title:String
-    let price:String
+    let freeAbove:Double
+    let expected:String
+}
+struct Payment:Decodable {
+    let selected:PaymentType
+    let types:[PaymentType]
 }
 
-extension PriceBreakUp:Identifiable {
-    var id: String {
-        return title
-    }
+struct PaymentType:Decodable,Identifiable {
+    let type:String
+    let image:String
+    let id:Int
 }
+

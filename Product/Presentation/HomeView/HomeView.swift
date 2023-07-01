@@ -59,16 +59,23 @@ struct ProductCollectionView:View {
 struct HeaderView:View {
     let text:String
     var isRightButtonVisible:Bool = false
+    @Binding var navigationTriggered:Bool
+   
+    init(title:String,navigationTriggered: Binding<Bool> = .constant(true),showRightButton:Bool = false) {
+        text = title
+        _navigationTriggered = navigationTriggered
+        isRightButtonVisible = showRightButton
+    }
+    
     var body: some View {
         HStack{
             Text(text)
                 .font(.title3)
             Spacer()
             if(isRightButtonVisible) {
-                NavigationLink {
-                    //TODO:Go to prodlist
-//                    ProductDetailsView(viewModel: ProductDetailsViewModel(prodId: "1"))
-                } label: {
+                Button{
+                    navigationTriggered = true
+                }label:{
                     HStack {
                         Text("View All")
                             .foregroundColor(Constants.AppColor.primaryColor)
@@ -98,16 +105,16 @@ struct OfferView:View {
 }
 
 struct HomeView: View {
-    @ObservedObject var viewModel = HomeViewModel()
+    @StateObject var viewModel:HomeViewModel
     let columns = [GridItem(.flexible()), GridItem(.flexible())]
-
+    @State var goToProdListScreen = false
     var body: some View {
         ScrollView{
             VStack {
-                HeaderView(text: "TopRated")
+                HeaderView(title: "TopRated")
                     .modifier(ScreenPadding())
                 HorizontalAutoScrollImageView(images: viewModel.topRatedImages)
-                HeaderView(text: "Offers")
+                HeaderView(title: "Offers")
                     .modifier(ScreenPadding())
                 HStack {
                     Image("offer")
@@ -128,8 +135,11 @@ struct HomeView: View {
                 )
                 .shadow(color:Constants.AppColor.primaryColor,radius: 5)
                 .background(.white)
-                HeaderView(text: "Suggested For You",isRightButtonVisible: true)
+                HeaderView(title: "Suggested For You",navigationTriggered: $goToProdListScreen,showRightButton: true)
                     .modifier(ScreenPadding())
+                    .navigationDestination(isPresented: $goToProdListScreen) {
+                        ViewContainer.createProdView()
+                    }
                    
                 if let products = viewModel.homeModel?.recommeded,products.count > 0 {
                    ProductCollectionView(columns: columns, products: products)
@@ -137,7 +147,9 @@ struct HomeView: View {
                 Spacer()
             }
             .padding(10)
-            .onAppear{
+        }
+        .onAppear{
+            if viewModel.homeModel == nil  {
                 viewModel.readData()
             }
         }
@@ -148,6 +160,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView()
+        ViewContainer.createHomeView()
     }
 }

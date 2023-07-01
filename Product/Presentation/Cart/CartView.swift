@@ -17,7 +17,7 @@ struct CartView:View {
                 ProceedToCheckoutSection(sum: Int(viewModel.totalPrice),itemsCount:viewModel.cartItems.count, moveToOrderView: $moveToOrderView)
                     .modifier(ScreenPadding())
                     .navigationDestination(isPresented: $moveToOrderView) {
-                        OrderView()
+                        ViewContainer.createOrderScreen(cartItems: viewModel.cartItems)
                     }
                 ScrollView {
                     LazyVGrid(columns: columns,spacing: Constants.Padding.s) {
@@ -31,9 +31,18 @@ struct CartView:View {
                 .background(Constants.AppColor.backgroundColor)
                 .scrollContentBackground(.hidden)
             }else {
-                EmptyCartView()
+                Spacer()
+                EmptyView {
+                    Image(systemName:"cart").resizable()
+                    .frame(width: Constants.ImageSize.widthIcon,
+                           height: Constants.ImageSize.heightIcon)
+                } textContent: {
+                    Text("Your cart is Empty")
+                }
+                Spacer()
             }
         }
+        .background(Constants.AppColor.backgroundColor)
         .onAppear{
             viewModel.getCartItems()
         }
@@ -41,19 +50,22 @@ struct CartView:View {
 }
 
 
-struct EmptyCartView:View {
+struct EmptyView<Icon:View,Content:View>:View {
+    @ViewBuilder var icon:Icon
+    @ViewBuilder var textContent:Content
     var body: some View {
         HStack{
-            Image(systemName:"cart").resizable()
-                .frame(width: Constants.ImageSize.widthIcon,
-                       height: Constants.ImageSize.heightIcon)
+            Spacer()
+            icon
                 .foregroundColor(Constants.AppColor.secondaryTextColor)
-            Text("Your cart is empty")
+            textContent
                 .font(.system(size: Constants.FontSize.largeSize))
                 .fontWeight(.light)
                 .foregroundColor(Constants.AppColor.secondaryTextColor)
+            Spacer()
         }
     }
+    
 }
 
 

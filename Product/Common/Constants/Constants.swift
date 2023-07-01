@@ -85,6 +85,7 @@ extension Constants {
     }
     
     struct OrderScreen {
+        static let orderDetails = "OrderDetails"
         static let proceedToOrderText = "Proceed to order"
         static let agreementText = "By placing your order, you agree to NMart's Privacy Notice, Conditions of use and Return Policy"
     }

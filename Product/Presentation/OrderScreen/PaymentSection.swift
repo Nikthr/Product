@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct PaymentSection: View {
-    var paymentOptionIcons:[String] = ["applepay","gpay","mastercard","visa"]
+    var payment:Payment
     var body: some View {
         VStack(alignment:.leading) {
-            HeaderView(text: "Payment information")
+            HeaderView(title: "Payment information")
                 .fontWeight(.bold)
                 .padding(.bottom,Constants.Padding.s)
             VStack(alignment: .leading) {
@@ -23,8 +23,8 @@ struct PaymentSection: View {
                    Spacer()
                 }
                 HStack {
-                    ForEach(paymentOptionIcons,id:\.self) { image in
-                        Image(image)
+                    ForEach(payment.types) { type in
+                        Image(type.image)
                             .resizable()
                             .scaledToFit()
                             .frame(height:Constants.ImageSize.heightIcon)
@@ -32,7 +32,7 @@ struct PaymentSection: View {
                     }
                     Spacer()
                 }
-                Text("Selected method Master card Ending 1121")
+                Text("Selected \(payment.selected.type)")
                     .modifier(LargeText())
                     .foregroundColor(Constants.AppColor.primartTextColor)
             }
@@ -44,6 +44,6 @@ struct PaymentSection: View {
 
 struct PaymenySection_Previews: PreviewProvider {
     static var previews: some View {
-        PaymentSection()
+        PaymentSection(payment: Payment(selected: PaymentType(type: "", image: "", id: 1), types: []))
     }
 }

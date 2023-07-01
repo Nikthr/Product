@@ -12,6 +12,7 @@ class CartData {
     
     private var cartItem:[ProductModel] = []
     public var passthrouhCartItems = PassthroughSubject<[ProductModel],Never>()
+   
     private init() {
     }
     
@@ -21,6 +22,11 @@ class CartData {
     
     func getcartItems() {
         passthrouhCartItems.send(cartItem)
+    }
+    
+    func removeCartItems() {
+        cartItem.removeAll()
+        passthrouhCartItems.send([])
     }
     
     func updateCart(product:ProductModel,update:StepperCompUpdate)  {

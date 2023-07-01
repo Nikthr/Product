@@ -15,12 +15,12 @@ class ProductsCatViewModel:ObservableObject {
     private let useCase:ProductCatUseCaseInterface
     private var cancellable:AnyCancellable?
     
-    init() {
-        useCase = ProductCatUseCase(productRepo: ProductCatRepoStub())
+    init(useCase:ProductCatUseCaseInterface) {
+        self.useCase = useCase
     }
     
     convenience init(selections:[String],categories:[CategoryModel]) {
-        self.init()
+        self.init(useCase:UseCaseContainer.catUseCase())
         self.catSelections = selections
         self.categories = categories
     }

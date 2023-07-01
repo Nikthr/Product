@@ -157,7 +157,7 @@ struct ProductDetailsView: View {
                         .modifier(ScreenPadding())
                     SoldbySection(detailsModel: detailsModel)
                     Group{
-                        HeaderView(text: Constants.HomeScreen.suggested)
+                        HeaderView(title: Constants.HomeScreen.suggested)
                             .modifier(ScreenPadding())
                         SimilarProdCollectionView(columns: self.columns,
                                                   products: detailsModel.recommeded,
@@ -271,39 +271,49 @@ struct TagModifier:ViewModifier {
 
 //AddressSection
 struct AddressSection:View {
-    let address:Address
+    let address:Address?
     let function:()->Void
     var body:some View {
-        HStack{
-            VStack(alignment:.leading) {
-                HStack {
-                    Text(Constants.ProductDetailsScreen.addressText)
-                        .modifier(RegularText())
-                        .foregroundColor(Constants.AppColor.primartTextColor)
-                    Text(address.name)
-                        .modifier(RegularText())
-                        .foregroundColor(Constants.AppColor.primartTextColor)
-                    Text(address.zipCode)
-                        .modifier(RegularText())
-                        .foregroundColor(Constants.AppColor.primartTextColor)
-                    Text(address.type)
-                        .modifier(LightText())
-                        .modifier(TagModifier(bgColor: Constants.AppColor.lightGrey))
+        if let address {
+            HStack{
+                VStack(alignment:.leading) {
+                    HStack {
+                        Text(Constants.ProductDetailsScreen.addressText)
+                            .modifier(RegularText())
+                            .foregroundColor(Constants.AppColor.primartTextColor)
+                        Text(address.name)
+                            .modifier(RegularText())
+                            .foregroundColor(Constants.AppColor.primartTextColor)
+                        Text(address.zipCode)
+                            .modifier(RegularText())
+                            .foregroundColor(Constants.AppColor.primartTextColor)
+                        Text(address.type)
+                            .modifier(LightText())
+                            .modifier(TagModifier(bgColor: Constants.AppColor.lightGrey))
+                    }
+                    HStack {
+                        Text(address.houseno)
+                            .modifier(LightText())
+                            .foregroundColor(Constants.AppColor.secondaryTextColor)
+                        Text(address.street)
+                            .modifier(LightText())
+                            .foregroundColor(Constants.AppColor.secondaryTextColor)
+                    }
                 }
-                HStack {
-                    Text(address.houseno)
-                        .modifier(LightText())
-                        .foregroundColor(Constants.AppColor.secondaryTextColor)
-                    Text(address.street)
-                        .modifier(LightText())
-                        .foregroundColor(Constants.AppColor.secondaryTextColor)
+                Spacer()
+                Button("Change") {
+                    function()
                 }
+                .foregroundColor(Constants.AppColor.blue)
             }
-            Spacer()
-            Button("Change") {
-                function()
+        } else {
+            HStack {
+                Spacer()
+                Button("Add") {
+                    function()
+                }
+                .foregroundColor(Constants.AppColor.blue)
             }
-            .foregroundColor(Constants.AppColor.blue)
         }
     }
 }
