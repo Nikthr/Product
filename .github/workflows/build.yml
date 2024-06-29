@@ -12,6 +12,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: List available Xcode versions
+        run: ls /Applications | grep Xcode
       - name: Set up Xcode
         uses: actions/setup-xcode@v2
         with:
