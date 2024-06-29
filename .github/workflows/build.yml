@@ -19,7 +19,7 @@ jobs:
           xcodebuild clean -project Product.xcodeproj -scheme Product -destination 'platform=iOS Simulator,,OS=17.0,name=iPhone 15'
       - name: Archive the app
         run: |
-          xcodebuild archive -project Product.xcodeproj -scheme Product -archivePath build/Product.xcarchive
+          xcodebuild archive -project Product.xcodeproj -scheme Product -archivePath build/Product.xcarchive -allowProvisioningUpdates
       - name: Export IPA
         run: |
           xcodebuild -exportArchive -archivePath build/Product.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build
