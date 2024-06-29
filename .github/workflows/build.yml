@@ -17,3 +17,17 @@ jobs:
       - name: Build and Test
         run: |
           xcodebuild clean -project Product.xcodeproj -scheme Product -destination 'platform=iOS Simulator,,OS=17.0,name=iPhone 15'
+      - name: Archive the app
+        run: |
+          xcodebuild archive -project Product.xcodeproj -scheme Product -archivePath build/Product.xcarchive
+      - name: Export IPA
+        run: |
+          xcodebuild -exportArchive -archivePath build/Product.xcarchive -exportOptionsPlist ExportOptions.plist -exportPath build
+      - name: Upload IPA
+        uses: actions/upload-artifact@v2
+        with:
+          name: Product IPA  # Name of the artifact
+          path: build/Product.ipa  # Path to the IPA file relative to the root of the repository
+
+
+
