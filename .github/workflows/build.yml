@@ -1,0 +1,23 @@
+name: iOS CI
+'on':
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Set up Xcode
+        uses: actions/setup-xcode@v2
+        with:
+          xcode-version: 15.x
+      - name: Build and Test
+        run: |
+          xcodebuild clean test -workspace Product.xcworkspace -scheme Product
+          -destination 'platform=iOS Simulator,OS=17.0,name=iPhone 15'
